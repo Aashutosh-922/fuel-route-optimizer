@@ -56,4 +56,110 @@ This avoids multiple map API calls and keeps response fast.
 
 ## 📡 API Endpoint
 
-https://www.loom.com/share/d067e7df775e4d198d434caeecb98d81
+GET /api/route/?start=<city>&end=<city>
+
+
+### Example
+
+
+
+GET /api/route/?start=Denver&end=Chicago
+
+
+### Response
+
+```json
+{
+  "fuel_stops": [
+    {
+      "city": "Omaha",
+      "state": "NE",
+      "price": 3.20,
+      "gallons": 42.5,
+      "cost": 136.0
+    }
+  ],
+  "total_fuel_cost": 136.0
+}
+
+🏗️ Project Structure
+fuel_optimizer/
+│
+├── config/              # Django settings
+├── routing/
+│   ├── views.py         # API layer
+│   ├── services.py      # External routing API call
+│   ├── fuel_logic.py    # Optimization algorithm
+│
+├── data/
+│   └── fuel-prices-for-be-assessment.csv
+│
+├── manage.py
+└── requirements.txt
+
+🔌 External Dependency
+
+OpenRouteService Directions API
+
+Only one request per route is made.
+
+All fuel optimization is local.
+
+🛠️ Setup Instructions
+1. Clone repo
+git clone https://github.com/<username>/fuel-route-optimizer.git
+cd fuel-route-optimizer
+
+2. Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+3. Install dependencies
+pip install -r requirements.txt
+
+4. Add environment variables
+
+Create .env
+
+ORS_API_KEY=your_api_key_here
+
+5. Run server
+python manage.py runserver
+
+🧪 Testing
+
+Open in browser or Postman:
+
+http://127.0.0.1:8000/api/route/?start=Denver&end=Chicago
+
+⚡ Performance Considerations
+
+Only one routing API call
+
+Fuel dataset loaded once into memory
+
+No repeated file reads
+
+Cached responses
+
+Linear traversal algorithm
+
+🎥 Demo
+
+Loom video: https://www.loom.com/share/d067e7df775e4d198d434caeecb98d81
+
+📌 Future Improvements
+
+Live fuel price integration
+
+Proper geocoding for city coordinates
+
+Redis caching
+
+Multiple vehicle profiles
+
+EV charging support
+
+👨‍💻 Author
+
+Aashutosh Karale
